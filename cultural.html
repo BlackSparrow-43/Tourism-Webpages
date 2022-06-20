@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Trip Advisor</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style type="text/css">
+            *{
+                margin:0;
+                padding:0;
+            }
+            body{
+                background-image: linear-gradient(to right, #004ddc, #0087ff, #00b2fd, #00d6d7, #03f4aa);
+                background-attachment: scroll;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                height:1600px;
+                align-items: center;
+            }
+            h1
+            {
+                text-align: center;
+                font-family: sans-serif;
+                font-size: 40pt;
+                font-weight:900;
+                letter-spacing: 2px;
+                text-shadow: 3px 5px 20px rgb(255, 217, 0);
+                background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKVULQe9AVeGAO-3pS9jhrAbFsQvZy_bbq_A&usqp=CAU");
+                filter:brightness(60%) contrast(350%) ;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+            .parentcontainer{
+                width: min(90vw);
+                height:90%;
+                box-shadow: 5px -5px 100px 20px #f0f0f3,
+                            -5px 5px 100px 20px #1f2424;
+                background:url("data:image/jpeg;base64,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") no-repeat fixed,white ;
+                background-size: cover;
+        
+                background-position: center;
+            }
+            .container-nav{
+                margin-top:1.5%;
+                margin-left: 1%;
+                display: grid;
+                grid-template-columns: 14% auto 12% 13% 16% 12% 15.5% ;
+                grid-template-rows: 1fr ;
+                align-items: center;
+                justify-items: start;
+            }
+            .nav-button{
+                background:rgba(0, 0, 0, 0.034);
+                border:none;
+                font-size: 1.5rem;
+                color:#004ddc;
+                padding: 7px;
+                filter: brightness();
+                padding-left: 10px;
+                transform: scale3d(.8,.8,.8);
+                transition:  all 1.5s cubic-bezier(0, 1.01, 1, 2.53) ;
+                border-radius:10px;
+                box-shadow: 2px 2px 4px seagreen;
+                letter-spacing: 5px;
+                font-weight: bold;
+            }
+            ion-icon{
+                transform:scale3d(1.3,1.3,1.3);
+                margin-right: 1rem;
+                color:#35a382;
+                filter: brightness(100%) ;
+                mix-blend-mode:darken;
+            }
+            [name*="bicycle"],[name*="log"]{
+                transform:scale3d(1.5,1.5,1.5);
+            }
+            .nav-button:hover{
+                transform: scale3d(.9,.9,.9);
+                border-bottom: 2px solid #004ddc;
+                background: rgba(0, 0, 0, 0.1);
+                transition:all .5s 1 linear forwards;
+            }
+            .nav-button:active{
+                transform: scale3d(.85,.85,.85);
+                border-bottom: 2px solid #20ff03;
+                background: rgba(0, 0, 0, 0.3);
+            }
+            #logo{
+                filter: brightness(110%)  contrast(100%) opacity(100%);
+                mix-blend-mode:multiply;
+                transform: scale3d(1.5,1.5,1.5);
+                justify-self:stretch ;
+                padding-left: 10px;
+                padding-top: 10px;
+            }
+            lord-icon{
+                width: 20px;
+                height: 20px;
+                transform: scale3d(2,2,2);
+                padding: 1px 13px 3px 7px;
+            }
+            #trips{
+                width: 25px;
+                height: 25px;
+            }
+            .trips{
+                position: relative;
+            }
+            .drop-menu{
+                position:absolute;
+                left:-4px;
+                top:25px;
+                font-size:1.5rem;
+                letter-spacing: 2px;
+                line-height: 2.5rem;
+                font-weight:bold ;
+                font-family:cursive;
+                color:#004ddc;
+                background: white;
+                border-radius: 5px;
+                font-weight: inherit;
+                box-shadow:0px 0px 5px 1px #03f4aa;
+                z-index:1000;
+                filter: brightness();
+                transform: scale3d(.73,.73,.73);
+            }
+            .drop-menu ul li{
+                padding:0 10px;
+                list-style: none;
+            }
+            .drop-menu ul li:hover{
+                background: #03f4aa;
+                border-radius: 15px;
+                font-weight: 900;
+                opacity:1;
+            }
+            hr{
+                background:#03f4aa;
+                border:1px solid #03f4aa;
+            }
+            .trips .drop-menu{
+                display: none;
+            }
+            #trip:hover #drop-menu{
+                display: block;
+            }
+            .container-content{
+                display:grid;
+                grid-template-columns: repeat(3,380px);
+                justify-content: space-evenly   ;
+                grid-row-gap:50px;
+            }
+            .cards{
+                box-shadow: 0 0 10px 1px black;
+                margin:10px;
+                background:white;
+                transition:  all 2.5s cubic-bezier(0, 1.01, 1, 2.53) ;
+                border-radius: 10px;
+            }
+            .cards:hover{
+                box-shadow: 0 0 20px 2px #023b1f;
+                transform: scale3d(1.05,1.05,1.05);
+                transition:  all 2.7s cubic-bezier(0, 1.01, 1, 2.53) ;
+            }
+            .title{
+                width:100%;
+                background: #4c4e4e;
+                border-top-left-radius: 10px;
+                border-top-right-radius: 10px;
+            }
+            .title p{
+                font-size:2.2rem;
+                font-weight: 700;
+                color:#1ec291;
+                transform: scale3d(.6,.6,.6);
+                white-space: pre;
+                text-align: center;
+            }
+            ._1 p{
+                transform: translateX(-32px) scale3d(.6,.6,.6);
+            }
+            .cards:hover .title p{
+                font-weight:900;
+                transform: scale3d(.7,.7,.7);
+                transition:  all 2.5s cubic-bezier(0, 1.01, 1, 2.53) ;
+            }
+            .cards:hover ._1 p{
+                font-weight:900;
+                transform: translateX(-35px) scale3d(.7,.7,.7);
+                transition:  all 2.5s cubic-bezier(0, 1.01, 1, 2.53) ;
+            }
+            .image{
+                width:100%;
+                height:200px;
+            }
+            .image2{
+                width:100%;
+                height:98px;
+            }
+            .content{
+                height:230px;
+                overflow-y:auto;
+                margin:10px 5px 10px 5px;
+                text-indent: 45px;
+            }
+            .content2{
+                height:125px;
+                overflow-y:auto;
+                margin:10px 5px 10px 5;
+                text-indent: 45px;
+            }
+            .content p{
+                font-size:1.25rem;
+                font-weight: 500;
+                text-align: justify;
+                font-style:italic;
+                padding:5px;
+            }
+            .content2 p{
+                font-size:1.2rem;
+                font-weight: 500;
+                text-align: justify;
+                font-style: italic;
+                padding:7px;
+            }
+            .extra{
+                width:100%;
+                background: #272b2a;
+                height:30px;
+                padding-bottom: 5px;
+                border-bottom-left-radius: 10px;
+                border-bottom-right-radius: 10px;
+            }
+            #like{
+                width:23px;
+                height:23px;
+                transform: translate3d(10px,5px,10px) ;
+                color:white;
+            }
+            #like:hover{
+                background: transparent;
+                transform:  translate3d(10px,6px,10px) scale3d(1.5,1.5,1.5);
+            }
+            #like:active{
+                color:#03f4aa;
+                transform: translate3d(10px,5px,10px) scale3d(1.2,1.2,1.2);
+            }
+            .extra:active .num{
+                color:white;
+            }
+            .num{
+                color:#03f4aa;    
+                background: #272b2a;
+                border:none;
+                width:60px;
+                pointer-events: none;
+                font-size: 1rem;
+            }
+            .link{
+                color:white;
+            }
+            .link:hover{
+                text-decoration-line: underline;
+            }
+            .link:active{
+                color:#03f4aa; 
+                font-weight: 700;
+            }
+            .link:visited{
+                color:#03f4aa; 
+            }
+        </style>    
+    </head>
+    <body>
+        <div class="parentcontainer">
+            <div class="container-nav">
+                <img src="https://icon2.cleanpng.com/20180601/af/kisspng-capri-palm-springs-convention-center-hotel-tripadv-review-5b11c1b59a01b2.4509683115278903576308.jpg" id="logo">
+                <div></div>
+                <button id="home" onclick="document.location.href='home.html'" class="nav-button">
+                    <ion-icon name="home"></ion-icon>Home
+                </button>
+                <button onclick="document.location.href='login.html'" class="nav-button">
+                    <lord-icon src="https://cdn.lordicon.com/gqzfzudq.json" trigger="loop" colors="primary:#121331,secondary:#08a88a" stroke="80 "></lord-icon>Login
+                </button >
+                <button class="register nav-button"   onclick="document.location.href='register.html'">
+                    <ion-icon name="person-add"></ion-icon>Register
+                </button>
+                <div class="trips" id="trip">
+                    <button class="nav-button"  id="trip">
+                        <lord-icon id="trips" src="https://cdn.lordicon.com/mqlsefjv.json" trigger="loop"  stroke="90"></lord-icon>Trips
+                    </button>
+                    <div class="drop-menu" id="drop-menu">
+                        <ul>
+                            <li onclick="document.location.href='adventure.html'">Adventure<hr></li>
+                            <li onclick="document.location.href='beach.html'">Beach<hr></li>
+                            <li onclick="document.location.href='cultural.html'">Cultural<hr></li>
+                            <li onclick="document.location.href='wild-tourism.html'">Wildlife<hr></li> 
+                            <li onclick="document.location.href='sports.html'">Sports</li> >     
+                        </ul>
+                    </div>   
+                </div>
+                <button class="chat nav-button" >
+                    <ion-icon name="chatbubbles"></ion-icon>Support
+                </button>  
+            </div>
+            <br><br>
+            <h1>
+                Cultural Tourism
+            </h1>
+            <br><br>
+            <div class="container-content">
+                <div class="cards">
+                    <div class="title">
+                        <p> Machu Picchu, Peru</p>
+                    </div>
+                    <div id="image">
+                        <img src="https://s.inspirockcdn.com/ds10/photos/Peru/3/santuario-historico-de-machu-picchu-1149555585.jpg" class="image">
+                    </div>
+                    <div class="content">
+                        <p>Explore the ruins of Santuario Historico de Machu Picchu, a 15th-century Incan community perched 2,430 m (7,970 ft) above sea level, on a mountain ridge overlooking the Sacred Valley. The partially restored site, built in the typical Incan style of polished dry-stone walls, spreads across multiple man-made terraces
+                        </p>
+                    </div>
+                    <div class="extra">
+                        <svg xmlns="http://www.w3.org/2000/svg" onclick="myfunction('num1')" id="like" width="16" height="16" fill="currentColor" class="bi bi-hand-thumbs-up-fill" viewBox="0 0 16 16">
+                            <path d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a9.84 9.84 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733.058.119.103.242.138.363.077.27.113.567.113.856 0 .289-.036.586-.113.856-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.163 3.163 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.82 4.82 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z"/>
+                        </svg>
+                        &emsp;
+                        <input type="text" class="num" id="num1" value="78934">
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                        <a href="https://www.usc.edu.au/.../about-k-gari-fraser-island/">
+                            <span class="link">
+                                View Article
+                            </span>  
+                        </a>
+                    </div>
+                </div>
+                <div class="cards">
+                    <div class="title">
+                        <p>Hawa Mahal</p>
+                    </div>
+                    <div class="content">
+                        <p>
+                            The Hawa Mahal in Jaipur is a very popular destination among tourists. Jaipur is the largest city and capital of Rajasthan and is also one of India’s most visited destinations, enamoring Indian and international travelers alike. Every year, travelers flock to the Pink City in a huge number. 
+                        </p>
+                    </div>
+                    <div id="image">
+                        <img src="https://res.cloudinary.com/dah7fhgud/image/upload/w_auto,c_scale/0070008853_465_380.jpg"class=
+"image">
+                    </div>
+                    <div class="extra">
+                        <svg xmlns="http://www.w3.org/2000/svg" onclick="myfunction('num3')" id="like" width="16" height="16" fill="currentColor" class="bi bi-hand-thumbs-up-fill" viewBox="0 0 16 16">
+                            <path d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a9.84 9.84 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733.058.119.103.242.138.363.077.27.113.567.113.856 0 .289-.036.586-.113.856-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.163 3.163 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.82 4.82 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z"/>
+                        </svg>
+                        &emsp;
+                        <input type="text" class="num" id="num3" value="793934">
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                        <a href="https://en.wikipedia.org/wiki/Hawa_Mahal"/>
+                            <span class="link">
+                                View Article
+                            </span>
+                        </a>
+                    </div>
+                </div>
+                <div class="cards">
+                    <div class="title">
+                        <p>Colosseum, Oval</p>
+                    </div>
+                    <div class="content2">
+                        <p>
+                            The Colosseum is an oval amphitheatre in the centre of the city of Rome, Italy, just east of the Roman Forum. It is the largest ancient amphitheatre ever built, and is still the largest standing 
+                        </p>
+                    </div>
+                    <div id="image">
+                        <img src="https://www.pouted.com/wp-content/uploads/2016/05/colosseum-at-sunset-wallpaper-3.jpg" class="image">
+                    </div>
+                    <div class="content2">
+                        <p>
+                            It is one of Rome's most popular tourist attractions and also has links to the Roman Catholic Church, as each Good Friday the Pope leads a torchlit "Way of the Cross".
+                        </p>
+                    </div>
+                    <div class="extra">
+                        <svg xmlns="http://www.w3.org/2000/svg" onclick="myfunction('num4')" id="like" width="16" height="16" fill="currentColor" class="bi bi-hand-thumbs-up-fill" viewBox="0 0 16 16">
+                            <path d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a9.84 9.84 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733.058.119.103.242.138.363.077.27.113.567.113.856 0 .289-.036.586-.113.856-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.163 3.163 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.82 4.82 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z"/>
+                        </svg>
+                        &emsp;
+                        <input type="text" class="num" id="num4" value="786445">
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                        <a href="https://en.wikipedia.org/wiki/Colosseum">
+                            <span class="link">
+                                View Article
+                            </span>
+                        </a>
+                    </div>
+                </div>
+                <div class="cards">
+                    <div class="title">
+                        <p>London Eye</p>
+                    </div>
+                    <div class="content">
+                        <p>
+                            Sir Richard Rogers, winner of the 2007 Pritzker Architecture Prize, wrote of the London Eye in a book about the project:The Eye has done for London what the Eiffel Tower did for Paris, which is to give it a symbol and to let people climb above the city and look back down on it. And it is one of the busiest places in London. A must to visit place.
+                        </p>
+                    </div>
+                    <div id="image">
+                        <img src="https://i.pinimg.com/originals/4c/ff/6d/4cff6dd30759d47925315bc2462e7643.jpg" class="image">
+                    </div>
+                    <div class="extra">
+                        <svg xmlns="http://www.w3.org/2000/svg" onclick="myfunction('num5')" id="like" width="16" height="16" fill="currentColor" class="bi bi-hand-thumbs-up-fill" viewBox="0 0 16 16">
+                            <path d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a9.84 9.84 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733.058.119.103.242.138.363.077.27.113.567.113.856 0 .289-.036.586-.113.856-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.163 3.163 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.82 4.82 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z"/>
+                        </svg>
+                        &emsp;
+                        <input type="text" class="num" id="num5" value="427934">
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                        <a href="https://www.thomascook.in/places-to-visit/london-eye-ticket-in-london-15615"/>
+                            <span class="link">
+                                View Article
+                            </span>
+                        </a>
+                    </div>
+                </div>
+                <div class="cards">
+                    <div class="title">
+                        <p>Pakistan Monument</p>
+                    </div>
+                    <div id="image">
+                        <img src="https://th.bing.com/th/id/R.88cafcb2287312fd98307fda68b86a0d?rik=kpcOoKEoaVBhLQ&riu=http%3a%2f%2fcdn2.insidermonkey.com%2fblog%2fwp-content%2fuploads%2f2015%2f06%2fshutterstock_243546586.jpg&ehk=wgABZmMuLnW1Gf%2f2vzikSGLPeDcN2FhjH6nUDXxgcEA%3d&risl=&pid=ImgRaw&r=0" class="image">
+                    </div>
+                    <div class="content">
+                        <p>
+                            The Pakistan Monument (Urdu: یادبود پاکستان) is a national monument and heritage museum located on the western Shakarparian Hills in Islamabad, Pakistan. The monument was constructed to symbolize the unity of the Pakistani people. It is one of the most famous cultural site In Pakistan which attracts millions of pilgrims every year .
+                        </p>
+                    </div>
+                    <div class="extra">
+                        <svg xmlns="http://www.w3.org/2000/svg" onclick="myfunction('num6')" id="like" width="16" height="16" fill="currentColor" class="bi bi-hand-thumbs-up-fill" viewBox="0 0 16 16">
+                            <path d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a9.84 9.84 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733.058.119.103.242.138.363.077.27.113.567.113.856 0 .289-.036.586-.113.856-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.163 3.163 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.82 4.82 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z"/>
+                        </svg>
+                        &emsp;
+                        <input type="text" class="num" id="num6" value="1234">
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                        <a href="https://en.wikipedia.org/wiki/Pakistan_Monument"/>
+                            <span class="link">
+                                View Article
+                            </span>
+                        </a>
+                    </div>
+                </div>
+                <div class="cards">
+                    <div class="title _1">
+                        <p> Brihadeeswara Temple, India</p>
+                    </div>
+                    <div id="image">
+                        <img src="https://www.templepurohit.com/wp-content/uploads/2016/04/Brihadeeswarar-Temple-Thanjavur-Tamil-Nadu-1.jpg" class="image2">
+                    </div>
+                    <div class="content">
+                        <p>
+                            A must needed place to be visited by cultural, archaelogical and historical lovers, Thanjavur Palace is positioned quite close to Brihadeeswarar Temple.the temple is a part of the UNESCO World Heritage Site known as the "Great Living Chola Temples". The temple walls have numerous inscriptions in Tamil and Grantha scripts.
+                        </p>
+                    </div>
+                    <div id="image">
+                        <img src="https://cdn.s3waas.gov.in/s3b7b16ecf8ca53723593894116071700c/uploads/2018/07/2018070242-1024x881.jpg" class="image2">
+                    </div>
+                    <div class="extra">
+                        <svg xmlns="http://www.w3.org/2000/svg" onclick="myfunction('num2')" id="like" width="16" height="16" fill="currentColor" class="bi bi-hand-thumbs-up-fill" viewBox="0 0 16 16">
+                            <path d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a9.84 9.84 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733.058.119.103.242.138.363.077.27.113.567.113.856 0 .289-.036.586-.113.856-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.163 3.163 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.82 4.82 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z"/>
+                        </svg>
+                        &emsp;
+                        <input type="text" class="num" id="num2" value="785467934">
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                        <a href="https://www.tourmyindia.com/heritage/brihadeeswara-temple.html"/>
+                            <span class="link">
+                                View Article
+                            </span>
+                        </a>
+                    </div>
+                </div> 
+            </div>
+        </div>
+        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+        <script src="https://cdn.lordicon.com/libs/mssddfmo/lord-icon-2.1.0.js"></script>
+        <script>
+            let dict = {num1:1,num2:1,num3:1,num4:1,num5:1,num6:1};
+            function myfunction(x){
+                let Num = parseInt(document.getElementById(x).value);
+                if (dict[x] == 1){
+                document.getElementById(x).value = Num+1;
+                dict[x] = 0;
+                }
+                else if (dict[x] == 0){
+                document.getElementById(x).value = Num-1;
+                dict[x] = 1;
+                }
+            }
+        </script>
+    </body>
+</html>

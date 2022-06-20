@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" type="text/css">
+        <title>Login</title>
+        <style type="text/css">
+            *
+            {
+                font-family:Arial, Helvetica, sans-serif;
+                font-size: 14px;
+            }
+            body
+            {
+                background: url("https://cdnb.artstation.com/p/media_assets/images/images/000/533/643/original/wildlands_nature_snow_02.gif?1580886107");
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                background-size: cover;
+                background-position: center;
+                display: flex;
+                width: 100%;
+                align-items: center;
+                flex-direction: column;
+            }
+            body h1
+            {
+                text-align: center;
+                font-family:Verdana, Geneva, Tahoma, sans-serif;
+                font-size: 40pt;
+                font-weight:900;
+                letter-spacing: 2px;
+                text-shadow: 3px 4px 5px rgba(255, 255, 255, 0.432);
+                background-image: linear-gradient(to bottom, #0b00ff, #005fff, #0089ff, #00abff, #00c8ff);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+            .container-login
+            {
+                min-width: 28%;
+                min-height: 750px;
+                background-color: rgba( 0, 0 , 0 , 0.4);
+                border-radius: 20px;
+                animation: contain 3s cubic-bezier(0.96, 0.96, 0.43, 1.17) 1s 1 forwards ;
+                display: grid;
+                grid-template-columns: 1fr;
+                grid-template-rows: auto;
+                justify-items: stretch;
+                align-content: center;
+                flex-direction: column;
+                padding-top: 0;
+                box-shadow: 3px 4px 5px 4px rgba(212, 199, 199, 0.432),
+                            -3px -4px 5px 4px rgba(20, 16, 16, 0.432) ;
+            }
+            @keyframes contain
+            {
+                0%{
+                    transform: translateY(200%);
+                    background-color:( 0, 0 , 0 , 0.4);
+                }
+                100%{
+                    transform: translateY(0);
+                    background-color: ( 0, 0 , 0 , 0.6);
+                }
+            }
+            hr.line
+            {
+                height: 4px;
+                width: 98%;
+                border:none;
+                border-radius: 60px;
+                background: linear-gradient(to right top, #00fffe, #00e1ff, #00c0ff, #009aff, #006bfe, #4056f2, #5e3be3, #740ad0, #9c00d5, #bf00d9, #e000dc, #ff00de);
+            }
+            label
+            {
+                color: white;
+                font-size: 18px;
+                font-family: Cochin, Georgia, Times, 'Times New Roman', serif;
+                margin-left: 5%;
+                font-weight: bold;
+                
+            }
+            .input,[id*="but"]  
+            {
+                height:40px;
+                border:none;
+                text-align:center;
+                font-size: 16px;
+                font-style: italic;
+                letter-spacing: 2px;
+                word-spacing: 7px;
+                background: transparent;
+                border-radius:20px;
+                margin-top: 10px;
+            }
+            .input
+            {
+                width:90%;
+                border-bottom:1px solid white;
+                color: rgb(206, 198, 198);
+                transition: border-bottom 1s ease-in ;
+                margin:0 0 0 5% ;
+            }
+            .box{
+                width: 100%;
+                margin-left:15px ;
+            }
+            .input:hover 
+            {
+                border-bottom: 2px solid red; 
+                background-color:rgba(4, 3, 61, 0.342);
+                color:palevioletred;
+            }
+            .input:active
+            {
+                background-color:rgb(0, 0, 0);
+                font-weight: bold;
+            }
+            .sudo {
+                margin:0;
+                border: none;
+                padding: 0 ;   
+            }
+            .sudo::before
+            {
+                content: "Forgot Password?";
+                display: block;
+                font-style: italic;
+                width:auto;
+                color:white;
+                text-align:right;
+                font-size: 15px;
+                transform: translateX(-5px);
+                font-weight: bold;
+            }
+            #signin
+            {
+                width: 13px;
+                height:13px;
+                font-style: italic;
+                font-size:14px;
+                font-weight:lighter;
+            }
+            [id*="but"]
+            {
+                width:45%;
+                font-weight: 840;
+                box-shadow:inset 1px 0px 2px 0px rgba(255, 255, 255, 0);
+                
+                color:black;
+                font-size:19px;
+            }
+            #signbut 
+            {  
+                background:-webkit-linear-gradient(180deg, rgb(195, 0, 255),rgba(8, 109, 241, 0.986)) ;
+                box-shadow: 2px 2px 4px 2px black ;
+                transition:  3s cubic-bezier(0.6, 1.17, 0.43, 1.03) ;
+                
+            }
+            #loginbut
+            {  
+                background:-webkit-linear-gradient(0deg, rgb(195, 0, 255),rgba(8, 109, 241, 0.986));
+                box-shadow: -2px 2px 4px 2px black;
+                transition:  3s cubic-bezier(1, 0.6, 0, 0.54) ;
+            }
+            
+            #signbut:hover
+            {  
+                box-shadow: 0 0  black, inset 50px 0px 30px 20px rgba(1, 34, 8, 0.658);
+                color:#05e6ff;
+                transition: 1s ease-out ;
+            }
+            #loginbut:hover
+            {  
+                box-shadow: 0 0  black,inset -50px 0px 30px 20px rgba(1, 34, 8, 0.658);
+                color:#05e6ff;
+                transition: 1s ease-in;
+            }
+            #signbut:active
+            {  
+                box-shadow: inset 50px 0px 30px 20px #05e6ff;
+                color:rgb(7, 73, 70);   
+            }
+            #loginbut:active
+            {
+                box-shadow: inset -50px 0px 30px 20px #05e6ff;
+                color:rgb(7, 73, 70);   
+            }
+            .foot
+            {
+                position: fixed;
+                bottom:0px;
+                left:0px;
+                right:  0px;
+                font-weight: bold;
+                background-color: rgb(0, 0, 0,0.6);
+                border-radius:0px 0px 20px 20px;   
+                white-space:pre;
+                text-align: left;
+                
+            }
+            #user
+            {
+                transform:  translateY(-400%)  scale3d(15,15,15);
+                color: rgb(235, 221, 233);
+                justify-self:center ;
+
+            }
+            #passwd,#mail
+            {
+                transform: scale3d(2,2,2) translateY(50%) translateX(150%) ;
+                color: rgb(255, 255, 255);
+                position: absolute;
+            }
+            #passwd:hover,#mail:hover
+            {
+                color: black;
+            }
+            #passwd:active,#mail:active
+            {
+                color: white;
+            }
+            .socialicons,.social
+            {
+                padding-top:20px;
+                transform: scale3d(2,2,2);
+                text-align: center;
+                font-style: italic;
+                color:white;
+                font-size: .7rem;
+                font-weight: bold;
+            }
+            #google,#twitter,#facebook,#instagram
+            {
+                border-radius: 50%;
+                padding: 5px;
+                margin:5px;
+                transition: 0.5s linear;
+                border-radius: 50%;
+            }
+            #google
+            {
+            background: linear-gradient(90deg, rgba(66,133,244,1) 25%, rgba(219,68,55,1) 50%, rgba(244,180,0,1) 275%,rgba(15,157,88,1) 100%);
+            }
+            #twitter
+            {
+                background-color:rgb(0, 255, 221);
+            }
+            #facebook
+            {
+                background-color:rgb(10, 141, 248);
+            }
+            #instagram
+            {
+                background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+                
+            }
+            #google:hover,#twitter:hover,#facebook:hover,#instagram:hover
+            {
+                background: transparent;
+                transform: scale3d(1.2,1.2,1.2);
+                box-shadow: 0px 3px 10px rgba(0,0,0,.30);
+            }
+            #google:active,#twitter:active,#facebook:active,#instagram:active
+            {
+                background: transparent;
+                transform: scale3d(1.1,1.1,1.1);
+                box-shadow: 0px 3px 10px rgba(0,0,0,.30);
+            }
+            #google:active
+            {
+                color:tomato;
+            }
+            #twitter:active
+            {
+                color:rgb(0, 255, 221);
+            }
+            #facebook:active
+            {
+                color:rgb(10, 141, 248);
+            }
+            #instagram:active
+            {
+                color: rgb(211, 8, 238);
+            }
+            [name*="logo"]
+            {
+                color:white;
+            }
+            .label{
+                margin-bottom: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>
+            Login
+        </h1>
+        
+        <div class="container-login">
+            <br><br><br><br><br>
+            <hr class="line">
+            <div id="user">
+                <ion-icon name="people-circle-outline" ></ion-icon>
+            </div>
+            
+            <br>
+            <form onsubmit="return submit_()" action="home.html">
+            <div>
+                <div class="label">
+                    <label>
+                        Username
+                    </label>
+                </div>
+                <ion-icon name="mail-open-outline" id="mail"></ion-icon>
+                <input type="email" placeholder="Type your email" class="input" id="name">
+                <br>
+                <br>
+            </div>
+        
+            <br>
+
+            <div>
+                <div class="label">
+                    <label>
+                        Password
+                    </label>
+                </div>    
+                <ion-icon name="key-sharp" id="passwd"></ion-icon>
+                <input type="password" placeholder="Type your password" class="input" id="password">
+                    <p class="sudo">
+                        <br><br>&emsp;&emsp;
+                        <input type="checkbox" name="sign" id="signin">
+                        <label id="signin">
+                            Keep me signed in
+                        </label> 
+                    </p>
+            </div>
+            <br><br>
+            <div class="box">                
+                <a href="register.html">
+                    <input type="button" id="signbut" value="SIGN UP">
+                </a>
+                
+                    <input type="submit" id="loginbut" value="LOGIN">
+                
+            </div>
+            </form>
+            <br>
+            <div class="social">
+                Or sign Up Using
+            </div>
+            <br><br>
+            <div class="socialicons">
+                <a href="https://accounts.google.com/signin/v2/identifier?service=accountsettings&continue=https%3A%2F%2Fmyaccount.google.com%2Fsecurity&ec=GAlAwAE&flowName=GlifWebSignIn&flowEntry=AddSession"/><ion-icon name="logo-google" id="google"></ion-icon></a>
+                <a href="https://twitter.com/"/><ion-icon name="logo-twitter" id="twitter"></ion-icon></a>
+                <a href="https://www.facebook.com/"/> <ion-icon name="logo-facebook" id="facebook"></ion-icon></a>
+                <a href="https://www.instagram.com/accounts/login/"/><ion-icon name="logo-instagram" id="instagram"></ion-icon></a>
+            </div>
+            
+            <div class="foot">
+                For any enquiries, Contact Support
+            </div>
+        
+        </div>
+        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+        <script src="https://cdn.lordicon.com/libs/mssddfmo/lord-icon-2.1.0.js"></script>
+        <script>
+            function submit_(){
+                let Name = document.getElementById("name").value;
+                var Pwd = document.getElementById("password").value;
+                for (let i of Name){
+                if ((/^[ -=+*!~`#$%&(){}?><,;\[\]:"']+$/).test(i)==true){
+                    alert("Invalid Username");
+                    return false;
+                    break;
+                }
+            }
+                if (Pwd.length<=6||Pwd==null&&Name==null||Name.length<=6){
+                    alert(" Lenght not sufficient, must be minimum of 7 characters");
+                    return false;
+                }
+            }
+        </script>
+    </body>
+</html>

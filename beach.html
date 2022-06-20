@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Trip Advisor</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style type="text/css">
+            *{
+                margin:0;
+                padding:0;
+            }
+            body{
+                background-image: linear-gradient(to right, #004ddc, #0087ff, #00b2fd, #00d6d7, #03f4aa);
+                background-attachment: scroll;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                height:1600px;
+                align-items: center;
+            }
+            h1
+            {
+                text-align: center;
+                font-family:Verdana, Geneva, Tahoma, sans-serif;
+                font-size: 40pt;
+                font-weight:900;
+                letter-spacing: 2px;
+                text-shadow: 3px 3px 20px rgba(11, 12, 12, 0.089);
+                background-image: linear-gradient(to bottom, #0001ff, #007aff, #00afff, #00daff, #00ffe8);
+                filter:brightness(70%) contrast(300%) ;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+            .parentcontainer{
+                width: min(90vw);
+                height:90%;
+                box-shadow: 5px -5px 100px 20px #f0f0f3,
+                            -5px 5px 100px 20px #1f2424;
+                background:url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRc-h2G_ELKW40x8P_PpxGjEsHCElL4d2sb2A&usqp=CAU") no-repeat fixed,white ;
+                background-size: 100% 100%;
+        
+                background-position: 100% 100%;
+            }
+            .container-nav{
+                margin-top:1.5%;
+                margin-left: 1%;
+                display: grid;
+                grid-template-columns: 12% auto 12% 13% 16% 12% 15.5% ;
+                grid-template-rows: 1fr ;
+                align-items: center;
+                justify-items: start;
+            }
+            .nav-button{
+                background:rgba(0, 0, 0, 0.034);
+                border:none;
+                font-size: 1.5rem;
+                color:#004ddc;
+                padding: 7px;
+                filter: brightness();
+                padding-left: 10px;
+                transform: scale3d(.8,.8,.8);
+                transition:  all 1.5s cubic-bezier(0, 1.01, 1, 2.53) ;
+                border-radius:10px;
+                box-shadow: 2px 2px 4px seagreen;
+                letter-spacing: 5px;
+                font-weight: bold;
+            }
+            ion-icon{
+                transform:scale3d(1.3,1.3,1.3);
+                margin-right: 1rem;
+                color:#35a382;
+                filter: brightness(100%) ;
+                mix-blend-mode:darken;
+            }
+            [name*="bicycle"],[name*="log"]{
+                transform:scale3d(1.5,1.5,1.5);
+            }
+            .nav-button:hover{
+                transform: scale3d(.9,.9,.9);
+                border-bottom: 2px solid #004ddc;
+                background: rgba(0, 0, 0, 0.1);
+                transition:all .5s 1 linear forwards;
+            }
+            .nav-button:active{
+                transform: scale3d(.85,.85,.85);
+                border-bottom: 2px solid #20ff03;
+                background: rgba(0, 0, 0, 0.3);
+            }
+            #logo{
+                filter: brightness(110%)  contrast(100%) opacity(100%);
+                mix-blend-mode:multiply;
+                transform: scale3d(1.5,1.5,1.5);
+                justify-self:stretch ;
+                padding-left: 10px;
+                padding-top: 10px;
+            }
+            lord-icon{
+                width: 20px;
+                height: 20px;
+                transform: scale3d(2,2,2);
+                padding: 1px 13px 3px 7px;
+            }
+            #trips{
+                width: 25px;
+                height: 25px;
+            }
+            .trips{
+                position: relative;
+            }
+            .drop-menu{
+                position:absolute;
+                left:-4px;
+                top:25px;
+                font-size:1.5rem;
+                letter-spacing: 2px;
+                line-height: 2.5rem;
+                font-weight:bold ;
+                font-family:cursive;
+                color:#004ddc;
+                background: white;
+                border-radius: 5px;
+                font-weight: inherit;
+                box-shadow:0px 0px 5px 1px #03f4aa;
+                z-index:1000;
+                filter: brightness();
+                transform: scale3d(.73,.73,.73);
+            }
+            .drop-menu ul li{
+                padding:0 10px;
+                list-style: none;
+            }
+            .drop-menu ul li:hover{
+                background: #03f4aa;
+                border-radius: 15px;
+                font-weight: 900;
+                opacity:1;
+            }
+            hr{
+                background:#03f4aa;
+                border:1px solid #03f4aa;
+            }
+            .trips .drop-menu{
+                display: none;
+            }
+            #trip:hover #drop-menu{
+                display: block;
+            }
+            .container-content{
+                display:grid;
+                grid-template-columns: repeat(3,380px);
+                justify-content: space-evenly   ;
+                grid-row-gap:50px;
+            }
+            .cards{
+                box-shadow: 0 0 10px 1px black;
+                margin:10px;
+                background:white;
+                transition:  all 2.5s cubic-bezier(0, 1.01, 1, 2.53) ;
+                border-radius: 10px;
+            }
+            .cards:hover{
+                box-shadow: 0 0 20px 2px #023b1f;
+                transform: scale3d(1.05,1.05,1.05);
+                transition:  all 2.7s cubic-bezier(0, 1.01, 1, 2.53) ;
+            }
+            .title{
+                width:100%;
+                background: #4c4e4e;
+                border-top-left-radius: 10px;
+                border-top-right-radius: 10px;
+            }
+            .title p{
+                font-size:2.2rem;
+                font-weight: 700;
+                color:#1ec291;
+                transform: scale3d(.6,.6,.6);
+                white-space: pre;
+                text-align:center;
+            }
+            ._1 p{
+                transform: translateX(-18px) scale3d(.6,.6,.6);
+            }
+            .cards:hover .title p{
+                font-weight:900;
+                transform: scale3d(.7,.7,.7);
+                transition:  all 2.5s cubic-bezier(0, 1.01, 1, 2.53) ;
+            }
+            .cards:hover ._1 p{
+                font-weight:900;
+                transform: translateX(-18px) scale3d(.7,.7,.7);
+                transition:  all 2.5s cubic-bezier(0, 1.01, 1, 2.53) ;
+            }
+            .image{
+                width:100%;
+                height:200px;
+            }
+            .image2{
+                width:100%;
+                height:98px;
+            }
+            .content{
+                height:230px;
+                overflow-y:auto;
+                margin:10px 5px 10px 5px;
+                text-indent: 45px;
+            }
+            .content2{
+                height:125px;
+                overflow-y:auto;
+                margin:10px 5px 10px 5;
+                text-indent: 45px;
+            }
+            .content p{
+                font-size:1.25rem;
+                font-weight: 500;
+                text-align: justify;
+                font-style:italic;
+                padding:5px;
+            }
+            .content2 p{
+                font-size:1.2rem;
+                font-weight: 500;
+                text-align: justify;
+                font-style: italic;
+                padding:7px;
+            }
+            .extra{
+                width:100%;
+                background: #272b2a;
+                height:30px;
+                padding-bottom: 5px;
+                border-bottom-left-radius: 10px;
+                border-bottom-right-radius: 10px;
+            }
+            #like{
+                width:23px;
+                height:23px;
+                transform: translate3d(10px,5px,10px) ;
+                color:white;
+            }
+            #like:hover{
+                background: transparent;
+                transform:  translate3d(10px,6px,10px) scale3d(1.5,1.5,1.5);
+            }
+            #like:active{
+                color:#03f4aa;
+                transform: translate3d(10px,5px,10px) scale3d(1.2,1.2,1.2);
+            }
+            .extra:active .num{
+                color:white;
+            }
+            .num{
+                color:#03f4aa;    
+                background: #272b2a;
+                border:none;
+                width:60px;
+                pointer-events: none;
+                font-size: 1rem;
+            }
+            .link{
+                color:white;
+            }
+            .link:hover{
+                text-decoration-line: underline;
+            }
+            .link:active{
+                color:#03f4aa; 
+                font-weight: 700;
+            }
+            .link:visited{
+                color:#03f4aa; 
+            }
+        </style>    
+    </head>
+    <body>
+        <div class="parentcontainer">
+            <div class="container-nav">
+                <img src="https://icon2.cleanpng.com/20180601/af/kisspng-capri-palm-springs-convention-center-hotel-tripadv-review-5b11c1b59a01b2.4509683115278903576308.jpg" id="logo">
+                <div></div>
+                <button id="home" onclick="document.location.href='home.html'" class="nav-button">
+                    <ion-icon name="home"></ion-icon>Home
+                </button>
+                <button onclick="document.location.href='login.html'" class="nav-button">
+                    <lord-icon src="https://cdn.lordicon.com/gqzfzudq.json" trigger="loop" colors="primary:#121331,secondary:#08a88a" stroke="80 "></lord-icon>Login
+                </button >
+                <button class="register nav-button"   onclick="document.location.href='register.html'">
+                    <ion-icon name="person-add"></ion-icon>Register
+                </button>
+                <div class="trips" id="trip">
+                    <button class="nav-button"  id="trip">
+                        <lord-icon id="trips" src="https://cdn.lordicon.com/mqlsefjv.json" trigger="loop"  stroke="90"></lord-icon>Trips
+                    </button>
+                    <div class="drop-menu" id="drop-menu">
+                        <ul>
+                            <li onclick="document.location.href='adventure.html'">Adventure<hr></li>
+                            <li onclick="document.location.href='beach.html'">Beach<hr></li>
+                            <li onclick="document.location.href='cultural.html'">Cultural<hr></li>
+                            <li onclick="document.location.href='wild-tourism.html'">Wildlife<hr></li>     
+                            <li onclick="document.location.href='sports.html'">Sports</li> 
+                        </ul>
+                    </div>   
+                </div>
+                <button class="chat nav-button" >
+                    <ion-icon name="chatbubbles"></ion-icon>Support
+                </button>  
+            </div>
+            <br><br>
+            <h1>
+                Beach Toursim
+            </h1>
+            <br><br>
+            <div class="container-content">
+                <div class="cards">
+                    <div class="title _1">
+                        <p>De Koog Texel, Netherlands</p>
+                    </div>
+                    <div id="image">
+                        <img src="https://www.touristmaker.com/wp-content/uploads/2017/04/de-koog-texel-the-netherlands.jpg" class="image">
+                    </div>
+                    <div class="content">
+                        <p>
+                            The culture of the Netherlands has always been strongly connected to the ocean.
+                            This is not surprising, especially considering that part of the territory of the country is even below sea level!!!. 
+                        </p>
+                        <p>
+                            The fine golden sand attracts tourist from the entire country but also from around Europe.
+                        </p>
+                    </div>
+                    <div class="extra">
+                        <svg xmlns="http://www.w3.org/2000/svg" onclick="myfunction('num1')" id="like" width="16" height="16" fill="currentColor" class="bi bi-hand-thumbs-up-fill" viewBox="0 0 16 16">
+                            <path d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a9.84 9.84 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733.058.119.103.242.138.363.077.27.113.567.113.856 0 .289-.036.586-.113.856-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.163 3.163 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.82 4.82 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z"/>
+                        </svg>
+                        &emsp;
+                        <input type="text" class="num" id="num1" value="993423">
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                        <a href="https://www.texel.net/en/about-texel/villages/de-koog/">
+                            <span class="link">
+                                View Article
+                            </span>  
+                        </a>
+                    </div>
+                </div>
+                <div class="cards">
+                    <div class="title">
+                        <p>Pink Beach, Indonesia</p>
+                    </div>
+                    <div class="content">
+                        <p>
+                            Pantai Merah (better known as simply Pink Beach) is one of only seven beaches in the world with pink sand.
+                        </p>
+                        <p>
+                            The real attraction here, however, is the underwater life–from the colorful corals packed with tropical fish to the seagrass beds and manta rays. The park is one of the best places in the world for snorkeling.
+                        </p>
+                    </div>
+                    <div id="image">
+                        <img src="https://www.planetware.com/wpimages/2019/08/asia-top-beaches-pink-beach-komodo-national-park-indonesia.jpg" class="image">
+                    </div>
+                    <div class="extra">
+                        <svg xmlns="http://www.w3.org/2000/svg" onclick="myfunction('num3')" id="like" width="16" height="16" fill="currentColor" class="bi bi-hand-thumbs-up-fill" viewBox="0 0 16 16">
+                            <path d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a9.84 9.84 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733.058.119.103.242.138.363.077.27.113.567.113.856 0 .289-.036.586-.113.856-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.163 3.163 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.82 4.82 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z"/>
+                        </svg>
+                        &emsp;
+                        <input type="text" class="num" id="num3" value="226693">
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                        <a href="https://theworldtravelguy.com/pink-beach-komodo-island-pink-sand-beach-indonesia/">
+                            <span class="link">
+                                View Article
+                            </span>
+                        </a>
+                    </div>
+                </div>
+                <div class="cards">
+                    <div class="title _1">
+                        <p>Nyang Nyang Beach, Bali</p>
+                    </div>
+                    <div class="content2">
+                        <p>
+                            You'll be rewarded with open views of the foamy coastline below as soon as you start the descent–including shipwrecks nesting on the golden sand and the dramatic colors of the reef.
+                        </p>
+                    </div>
+                    <div id="image">
+                        <img src="https://www.planetware.com/wpimages/2019/08/asia-top-beaches-nyang-nyang-beach-bali.jpg" class="image">
+                    </div>
+                    <div class="content2">
+                        <p>
+                            While not great for swimming because of the strong currents, Nyang Nyang is perfect for experienced surfers or those who just want a dreamy stretch of grassy sand to lie back and relax.
+                        </p>
+                    </div>
+                    <div class="extra">
+                        <svg xmlns="http://www.w3.org/2000/svg" onclick="myfunction('num4')" id="like" width="16" height="16" fill="currentColor" class="bi bi-hand-thumbs-up-fill" viewBox="0 0 16 16">
+                            <path d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a9.84 9.84 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733.058.119.103.242.138.363.077.27.113.567.113.856 0 .289-.036.586-.113.856-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.163 3.163 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.82 4.82 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z"/>
+                        </svg>
+                        &emsp;
+                        <input type="text" class="num" id="num4" value="676845">
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                        <a href="https://www.wwf.org.uk/where-we-work/amazon">
+                            <span class="link">
+                                View Article
+                            </span>
+                        </a>
+                    </div>
+                </div>
+                <div class="cards">
+                    <div class="title _1">
+                        <p>Andaman & Nicobar Islands</p>
+                    </div>
+                    <div class="content">
+                        <p>
+                            The Andaman and Nicobar Islands are popular for offering the best water sport and water-based activities in India. Be it snorkelling or scuba diving or parasailing, this is where you head to if you are a water baby. The island has the best beach resorts and hotels that also offer the water activities that you want to try out.
+                        </p>
+                    </div>
+                    <div id="image">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS69V2PUKJkA5lKmOIj9NiTpN6zna2Ew8yejQ&usqp=CAU" class="image">
+                    </div>
+                    <div class="extra">
+                        <svg xmlns="http://www.w3.org/2000/svg" onclick="myfunction('num5')" id="like" width="16" height="16" fill="currentColor" class="bi bi-hand-thumbs-up-fill" viewBox="0 0 16 16">
+                            <path d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a9.84 9.84 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733.058.119.103.242.138.363.077.27.113.567.113.856 0 .289-.036.586-.113.856-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.163 3.163 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.82 4.82 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z"/>
+                        </svg>
+                        &emsp;
+                        <input type="text" class="num" id="num5" value="223934">
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                        <a href="https://www.andamantourism.gov.in/">
+                            <span class="link">
+                                View Article
+                            </span>
+                        </a>
+                    </div>
+                </div>
+                <div class="cards">
+                    <div class="title">
+                        <p>Kovalam, India </p>
+                    </div>
+                    <div id="image">
+                        <img src="data:image/jpeg;base64,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" class="image">
+                    </div>
+                    <div class="content">
+                        <p>
+                            Kovalam is an internationally renowned beach with three adjacent crescent beaches. It has been a favourite haunt of tourists since the 1930s. A massive rocky promontory on the beach has created a beautiful bay of calm waters ideal for sea bathing.
+                            The beach complex includes a string of budget cottages, Ayurvedic health resorts, convention facilities, shopping zones, swimming pools, Yoga and Ayurvedic massage centres.
+                        </p>
+                    </div>
+                    <div class="extra">
+                        <svg xmlns="http://www.w3.org/2000/svg" onclick="myfunction('num6')" id="like" width="16" height="16" fill="currentColor" class="bi bi-hand-thumbs-up-fill" viewBox="0 0 16 16">
+                            <path d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a9.84 9.84 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733.058.119.103.242.138.363.077.27.113.567.113.856 0 .289-.036.586-.113.856-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.163 3.163 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.82 4.82 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z"/>
+                        </svg>
+                        &emsp;
+                        <input type="text" class="num" id="num6" value="291234">
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                        <a href="https://www.keralatourism.org/destination/kovalam-beach/236">
+                            <span class="link">
+                                View Article
+                            </span>
+                        </a>
+                    </div>
+                </div>
+                <div class="cards">
+                    <div class="title _1">
+                        <p>Whitehaven Beach, Australia</p>
+                    </div>
+                    <div id="image">
+                        <img src="https://www.planetware.com/photos-large/AUS/australia-best-beaches-whitehaven.jpg" class="image2">
+                    </div>
+                    <div class="content">
+                        <p>
+                            Whitehaven Beach in the Whitsunday Islands along the Great Barrier Reef is not just one of Australia's top stretches of coast, it often scores a place on lists of the best beaches in the world.
+                            Most tourists visit the beach on day trips from Airlie Beach, Shute Harbour, or one of the resorts in the Whitsunday Islands.
+                        </p>
+                    </div>
+                    <div id="image">
+                        <img src="https://www.planetware.com/photos-large/AUS/australia-best-beaches-cossies-beach.jpg" class="image2">
+                    </div>
+                    <div class="extra">
+                        <svg xmlns="http://www.w3.org/2000/svg" onclick="myfunction('num2')" id="like" width="16" height="16" fill="currentColor" class="bi bi-hand-thumbs-up-fill" viewBox="0 0 16 16">
+                            <path d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a9.84 9.84 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733.058.119.103.242.138.363.077.27.113.567.113.856 0 .289-.036.586-.113.856-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.163 3.163 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.82 4.82 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z"/>
+                        </svg>
+                        &emsp;
+                        <input type="text" class="num" id="num2" value="78934">
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                        <a href="https://www.hamiltonisland.com.au/things-to-do/whitehaven-beach">
+                            <span class="link">
+                                View Article
+                            </span>
+                        </a>
+                    </div>
+                </div> 
+            </div>
+        </div>
+        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+        <script src="https://cdn.lordicon.com/libs/mssddfmo/lord-icon-2.1.0.js"></script>
+        <script>
+            let dict = {num1:1,num2:1,num3:1,num4:1,num5:1,num6:1};
+            function myfunction(x){
+                let Num = parseInt(document.getElementById(x).value);
+                if (dict[x] == 1){
+                document.getElementById(x).value = Num+1;
+                dict[x] = 0;
+                }
+                else if (dict[x] == 0){
+                document.getElementById(x).value = Num-1;
+                dict[x] = 1;
+                }
+            }
+        </script>
+    </body>
+</html>

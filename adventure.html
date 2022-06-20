@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Trip Advisor</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style type="text/css">
+            *{
+                margin:0;
+                padding:0;
+            }
+            body{
+                background-image: linear-gradient(to right, #004ddc, #0087ff, #00b2fd, #00d6d7, #03f4aa);
+                background-attachment: scroll;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                height:1600px;
+                align-items: center;
+            }
+            h1
+            {
+                text-align: center;
+                font-family:Verdana, Geneva, Tahoma, sans-serif;
+                font-size: 40pt;
+                font-weight:900;
+                letter-spacing: 2px;
+                text-shadow: 3px 3px 20px rgba(0, 255, 128, 0.596);
+                background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUREbJZ-tjmPsPXFp8084Q0wNdLVp_IoQ9SQ&usqp=CAU");
+                filter:brightness(90%) contrast(200%) ;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+            .parentcontainer{
+                width: min(90vw);
+                height:90%;
+                box-shadow: 5px -5px 100px 20px #f0f0f3,
+                            -5px 5px 100px 20px #1f2424;
+                background:url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUO03bFJpehkO-vc4KOX8kkT2v2fREkZTCOA&usqp=CAU") no-repeat fixed,white ;
+                background-size: cover;
+        
+                background-position: 100% 20%;
+            }
+            .container-nav{
+                margin-top:1.5%;
+                margin-left: 1%;
+                display: grid;
+                grid-template-columns: 12% auto 12% 13% 16% 12% 15.5% ;
+                grid-template-rows: 1fr ;
+                align-items: center;
+                justify-items: start;
+            }
+            .nav-button{
+                background:rgba(0, 0, 0, 0.034);
+                border:none;
+                font-size: 1.5rem;
+                color:#004ddc;
+                padding: 7px;
+                filter: brightness();
+                padding-left: 10px;
+                transform: scale3d(.8,.8,.8);
+                transition:  all 1.5s cubic-bezier(0, 1.01, 1, 2.53) ;
+                border-radius:10px;
+                box-shadow: 2px 2px 4px seagreen;
+                letter-spacing: 5px;
+                font-weight: bold;
+            }
+            ion-icon{
+                transform:scale3d(1.3,1.3,1.3);
+                margin-right: 1rem;
+                color:#35a382;
+                filter: brightness(100%) ;
+                mix-blend-mode:darken;
+            }
+            [name*="bicycle"],[name*="log"]{
+                transform:scale3d(1.5,1.5,1.5);
+            }
+            .nav-button:hover{
+                transform: scale3d(.9,.9,.9);
+                border-bottom: 2px solid #004ddc;
+                background: rgba(0, 0, 0, 0.1);
+                transition:all .5s 1 linear forwards;
+            }
+            .nav-button:active{
+                transform: scale3d(.85,.85,.85);
+                border-bottom: 2px solid #20ff03;
+                background: rgba(0, 0, 0, 0.3);
+            }
+            #logo{
+                filter: brightness(110%)  contrast(100%) opacity(100%);
+                mix-blend-mode:multiply;
+                transform: scale3d(1.5,1.5,1.5);
+                justify-self:stretch ;
+                padding-left: 10px;
+                padding-top: 10px;
+            }
+            lord-icon{
+                width: 20px;
+                height: 20px;
+                transform: scale3d(2,2,2);
+                padding: 1px 13px 3px 7px;
+            }
+            #trips{
+                width: 25px;
+                height: 25px;
+            }
+            .trips{
+                position: relative;
+            }
+            .drop-menu{
+                position:absolute;
+                left:-4px;
+                top:25px;
+                font-size:1.5rem;
+                letter-spacing: 2px;
+                line-height: 2.5rem;
+                font-weight:bold ;
+                font-family:cursive;
+                color:#004ddc;
+                background: white;
+                border-radius: 5px;
+                font-weight: inherit;
+                box-shadow:0px 0px 5px 1px #03f4aa;
+                z-index:1000;
+                filter: brightness();
+                transform: scale3d(.73,.73,.73);
+            }
+            .drop-menu ul li{
+                padding:0 10px;
+                list-style: none;
+            }
+            .drop-menu ul li:hover{
+                background: #03f4aa;
+                border-radius: 15px;
+                font-weight: 900;
+                opacity:1;
+            }
+            hr{
+                background:#03f4aa;
+                border:1px solid #03f4aa;
+            }
+            .trips .drop-menu{
+                display: none;
+            }
+            #trip:hover #drop-menu{
+                display: block;
+            }
+            .container-content{
+                display:grid;
+                grid-template-columns: repeat(3,380px);
+                justify-content: space-evenly   ;
+                grid-row-gap:50px;
+            }
+            .cards{
+                box-shadow: 0 0 10px 1px black;
+                margin:10px;
+                background:white;
+                transition:  all 2.5s cubic-bezier(0, 1.01, 1, 2.53) ;
+                border-radius: 10px;
+            }
+            .cards:hover{
+                box-shadow: 0 0 20px 2px #023b1f;
+                transform: scale3d(1.05,1.05,1.05);
+                transition:  all 2.7s cubic-bezier(0, 1.01, 1, 2.53) ;
+            }
+            .title{
+                width:100%;
+                background: #4c4e4e;
+                border-top-left-radius: 10px;
+                border-top-right-radius: 10px;
+            }
+            .title p{
+                font-size:2.2rem;
+                font-weight: 700;
+                color:#1ec291;
+                transform: scale3d(.6,.6,.6);
+                white-space: pre;
+                text-align:center;
+            }
+            ._1 p{
+                transform: translateX(-18px) scale3d(.6,.6,.6);
+            }
+            .cards:hover .title p{
+                font-weight:900;
+                transform: scale3d(.7,.7,.7);
+                transition:  all 2.5s cubic-bezier(0, 1.01, 1, 2.53) ;
+            }
+            .cards:hover ._1 p{
+                font-weight:900;
+                transform: translateX(-18px) scale3d(.7,.7,.7);
+                transition:  all 2.5s cubic-bezier(0, 1.01, 1, 2.53) ;
+            }
+            .image{
+                width:100%;
+                height:200px;
+            }
+            .image2{
+                width:100%;
+                height:98px;
+            }
+            .content{
+                height:230px;
+                overflow-y:auto;
+                margin:10px 5px 10px 5px;
+                text-indent: 45px;
+            }
+            .content2{
+                height:125px;
+                overflow-y:auto;
+                margin:10px 5px 10px 5;
+                text-indent: 45px;
+            }
+            .content p{
+                font-size:1.25rem;
+                font-weight: 500;
+                text-align: justify;
+                font-style:italic;
+                padding:5px;
+            }
+            .content2 p{
+                font-size:1.2rem;
+                font-weight: 500;
+                text-align: justify;
+                font-style: italic;
+                padding:7px;
+            }
+            .extra{
+                width:100%;
+                background: #272b2a;
+                height:30px;
+                padding-bottom: 5px;
+                border-bottom-left-radius: 10px;
+                border-bottom-right-radius: 10px;
+            }
+            #like{
+                width:23px;
+                height:23px;
+                transform: translate3d(10px,5px,10px) ;
+                color:white;
+            }
+            #like:hover{
+                background: transparent;
+                transform:  translate3d(10px,6px,10px) scale3d(1.5,1.5,1.5);
+            }
+            #like:active{
+                color:#03f4aa;
+                transform: translate3d(10px,5px,10px) scale3d(1.2,1.2,1.2);
+            }
+            .extra:active .num{
+                color:white;
+            }
+            .num{
+                color:#03f4aa;    
+                background: #272b2a;
+                border:none;
+                width:60px;
+                pointer-events: none;
+                font-size: 1rem;
+            }
+            .link{
+                color:white;
+            }
+            .link:hover{
+                text-decoration-line: underline;
+            }
+            .link:active{
+                color:#03f4aa; 
+                font-weight: 700;
+            }
+            .link:visited{
+                color:#03f4aa; 
+            }
+        </style>    
+    </head>
+    <body>
+        <div class="parentcontainer">
+            <div class="container-nav">
+                <img src="https://icon2.cleanpng.com/20180601/af/kisspng-capri-palm-springs-convention-center-hotel-tripadv-review-5b11c1b59a01b2.4509683115278903576308.jpg" id="logo">
+                <div></div>
+                <button id="home" onclick="document.location.href='home.html'" class="nav-button">
+                    <ion-icon name="home"></ion-icon>Home
+                </button>
+                <button onclick="document.location.href='login.html'" class="nav-button">
+                    <lord-icon src="https://cdn.lordicon.com/gqzfzudq.json" trigger="loop" colors="primary:#121331,secondary:#08a88a" stroke="80 "></lord-icon>Login
+                </button >
+                <button class="register nav-button"   onclick="document.location.href='register.html'">
+                    <ion-icon name="person-add"></ion-icon>Register
+                </button>
+                <div class="trips" id="trip">
+                    <button class="nav-button"  id="trip">
+                        <lord-icon id="trips" src="https://cdn.lordicon.com/mqlsefjv.json" trigger="loop"  stroke="90"></lord-icon>Trips
+                    </button>
+                    <div class="drop-menu" id="drop-menu">
+                        <ul>
+                            <li onclick="document.location.href='adventure.html'">Adventure<hr></li>
+                            <li onclick="document.location.href='beach.html'">Beach<hr></li>
+                            <li onclick="document.location.href='cultural.html'">Cultural<hr></li>
+                            <li onclick="document.location.href='wild-tourism.html'">Wildlife<hr></li>     
+                            <li onclick="document.location.href='sports.html'">Sports</li> 
+                        </ul>
+                    </div>   
+                </div>
+                <button class="chat nav-button" >
+                    <ion-icon name="chatbubbles"></ion-icon>Support
+                </button>  
+            </div>
+            <br><br>
+            <h1>
+                Adventure Tourism
+            </h1>
+            <br><br>
+            <div class="container-content">
+                <div class="cards">
+                    <div class="title">
+                        <p>Mount Everest, Nepal</p>
+                    </div>
+                    <div id="image">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGDCRC56q5BbUYuaj9dKKg8URTljI-Q20rdA&usqp=CAU"
+                         class="image">
+                    </div>
+                    <div class="content">
+                        <p>
+                            Mount Everest is Earth's highest mountain above sea level, located in the Mahalangur Himal sub-range of the Himalayas. The most loved place by adventures to test their determination. The China–Nepal border runs across its summit point. Its elevation of 8,848.86 m was most recently established in 2020 by the Chinese and Nepali authorities...
+                        </p>
+                    </div>
+                    <div class="extra">
+                        <svg xmlns="http://www.w3.org/2000/svg" onclick="myfunction('num1')" id="like" width="16" height="16" fill="currentColor" class="bi bi-hand-thumbs-up-fill" viewBox="0 0 16 16">
+                            <path d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a9.84 9.84 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733.058.119.103.242.138.363.077.27.113.567.113.856 0 .289-.036.586-.113.856-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.163 3.163 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.82 4.82 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z"/>
+                        </svg>
+                        &emsp;
+                        <input type="text" class="num" id="num1" value="993423">
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                        <a href="https://en.m.wikipedia.org/wiki/Mount_Everest">
+                            <span class="link">
+                                View Article
+                            </span>  
+                        </a>
+                    </div>
+                </div>
+                <div class="cards">
+                    <div class="title">
+                        <p>Whistler, Canada</p>
+                    </div>
+                    <div class="content">
+                        <p>
+                            Loved by the likes of yours truly and the Prince of Dubai, the helicopter rides over Whistler in British Columbia, Canada, are a once-in-a-lifetime experience.
+                        </p>
+                        <p>Get a bird’s-eye view of these gorgeous mountains, and then stop atop Rainbow Mountain for a view that will take your breath away.</p>
+                    </div>
+                    <div id="image">
+                        <img src="https://www.theblondeabroad.com/wp-content/uploads/2015/12/DSCF1107-5.jpg" class="image">
+                    </div>
+                    <div class="extra">
+                        <svg xmlns="http://www.w3.org/2000/svg" onclick="myfunction('num3')" id="like" width="16" height="16" fill="currentColor" class="bi bi-hand-thumbs-up-fill" viewBox="0 0 16 16">
+                            <path d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a9.84 9.84 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733.058.119.103.242.138.363.077.27.113.567.113.856 0 .289-.036.586-.113.856-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.163 3.163 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.82 4.82 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z"/>
+                        </svg>
+                        &emsp;
+                        <input type="text" class="num" id="num3" value="2266934">
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                        <a href="https://www.planetware.com/tourist-attractions-/whistler-cdn-bc-bcw.htm">
+                            <span class="link">
+                                View Article
+                            </span>
+                        </a>
+                    </div>
+                </div>
+                <div class="cards">
+                    <div class="title _1">
+                        <p>Jungle Adventures, Amazon</p>
+                    </div>
+                    <div class="content2">
+                        <p>
+                            A tour of the Amazon Rainforest is an almost surreal journey into the heart of the largest rainforest on earth. Amazon is the most bio-diverse place on the planet with millions of different species of plants.
+                        </p>
+                    </div>
+                    <div id="image">
+                        <img src="https://www.bookmundi.com/blog/wp-content/uploads/2016/09/Amazon-rainforest-in-Brazil.jpg" class="image">
+                    </div>
+                    <div class="content2">
+                        <p>
+                            Amazon river cruises, piranha fishing, bird watching, hiking through the lush rainforest looking for native wildlife and medicinal plants, or visiting Shamans – the traditional healers of South America.
+                        </p>
+                    </div>
+                    <div class="extra">
+                        <svg xmlns="http://www.w3.org/2000/svg" onclick="myfunction('num4')" id="like" width="16" height="16" fill="currentColor" class="bi bi-hand-thumbs-up-fill" viewBox="0 0 16 16">
+                            <path d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a9.84 9.84 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733.058.119.103.242.138.363.077.27.113.567.113.856 0 .289-.036.586-.113.856-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.163 3.163 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.82 4.82 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z"/>
+                        </svg>
+                        &emsp;
+                        <input type="text" class="num" id="num4" value="676845">
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                        <a href="https://www.wwf.org.uk/where-we-work/amazon">
+                            <span class="link">
+                                View Article
+                            </span>
+                        </a>
+                    </div>
+                </div>
+                <div class="cards">
+                    <div class="title _1">
+                        <p>Andaman & Nicobar Islands</p>
+                    </div>
+                    <div class="content">
+                        <p>
+                            The Andaman and Nicobar Islands are popular for offering the best water sport and water-based activities in India. Be it snorkelling or scuba diving or parasailing, this is where you head to if you are a water baby. The island has the best beach resorts and hotels that also offer the water activities that you want to try out.
+                        </p>
+                    </div>
+                    <div id="image">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS69V2PUKJkA5lKmOIj9NiTpN6zna2Ew8yejQ&usqp=CAU" class="image">
+                    </div>
+                    <div class="extra">
+                        <svg xmlns="http://www.w3.org/2000/svg" onclick="myfunction('num5')" id="like" width="16" height="16" fill="currentColor" class="bi bi-hand-thumbs-up-fill" viewBox="0 0 16 16">
+                            <path d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a9.84 9.84 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733.058.119.103.242.138.363.077.27.113.567.113.856 0 .289-.036.586-.113.856-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.163 3.163 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.82 4.82 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z"/>
+                        </svg>
+                        &emsp;
+                        <input type="text" class="num" id="num5" value="223934">
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                        <a href="https://www.andamantourism.gov.in/">
+                            <span class="link">
+                                View Article
+                            </span>
+                        </a>
+                    </div>
+                </div>
+                <div class="cards">
+                    <div class="title">
+                        <p>Tarifa, Spain </p>
+                    </div>
+                    <div id="image">
+                        <img src="https://images.huffingtonpost.com/2013-11-21-TarifaSylviaColomo-thumb.jpg" class="image">
+                    </div>
+                    <div class="content">
+                        <p>
+                            Tarifa is a sunny beach town on the Strait of Gibraltar that's known throughout Spain for one thing: wind. That means that in addition to offering golden beaches and dolphin-filled turquoise waters, Tarifa is also a premier international destination for wind and kite surfers and the climbers and hikers enjoy the rocky hills.
+                        </p>
+                    </div>
+                    <div class="extra">
+                        <svg xmlns="http://www.w3.org/2000/svg" onclick="myfunction('num6')" id="like" width="16" height="16" fill="currentColor" class="bi bi-hand-thumbs-up-fill" viewBox="0 0 16 16">
+                            <path d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a9.84 9.84 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733.058.119.103.242.138.363.077.27.113.567.113.856 0 .289-.036.586-.113.856-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.163 3.163 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.82 4.82 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z"/>
+                        </svg>
+                        &emsp;
+                        <input type="text" class="num" id="num6" value="291234">
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                        <a href="https://theculturetrip.com/europe/spain/articles/11-reasons-why-you-should-visit-tarifa-spain-at-least-once-in-your-life/">
+                            <span class="link">
+                                View Article
+                            </span>
+                        </a>
+                    </div>
+                </div>
+                <div class="cards">
+                    <div class="title">
+                        <p>Manali, India</p>
+                    </div>
+                    <div id="image">
+                        <img src=" https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTGKUm11Ek46UujesoHfi8M3MJSHDdu8HGyA&usqp=CAU" class="image2">
+                    </div>
+                    <div class="content">
+                        <p>
+                            Manali is a high-altitude Himalayan resort town in India’s northern Himachal Pradesh state. It has a reputation as a backpacking center and honeymoon destination. Set on the Beas River, it’s a gateway for skiing in the Solang Valley and trekking in Parvati Valley. It's also a jumping-off......
+                        </p>
+                    </div>
+                    <div id="image">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTZYOxdVqdEYKYJ0CteGskE41kf0vrjRTO9w&usqp=CAU" class="image2">
+                    </div>
+                    <div class="extra">
+                        <svg xmlns="http://www.w3.org/2000/svg" onclick="myfunction('num2')" id="like" width="16" height="16" fill="currentColor" class="bi bi-hand-thumbs-up-fill" viewBox="0 0 16 16">
+                            <path d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a9.84 9.84 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733.058.119.103.242.138.363.077.27.113.567.113.856 0 .289-.036.586-.113.856-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.163 3.163 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.82 4.82 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z"/>
+                        </svg>
+                        &emsp;
+                        <input type="text" class="num" id="num2" value="78934">
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                        <a href="https://www.tourism-of-india.com/manali/">
+                            <span class="link">
+                                View Article
+                            </span>
+                        </a>
+                    </div>
+                </div> 
+            </div>
+        </div>
+        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+        <script src="https://cdn.lordicon.com/libs/mssddfmo/lord-icon-2.1.0.js"></script>
+        <script>
+            let dict = {num1:1,num2:1,num3:1,num4:1,num5:1,num6:1};
+            function myfunction(x){
+                let Num = parseInt(document.getElementById(x).value);
+                if (dict[x] == 1){
+                document.getElementById(x).value = Num+1;
+                dict[x] = 0;
+                }
+                else if (dict[x] == 0){
+                document.getElementById(x).value = Num-1;
+                dict[x] = 1;
+                }
+            }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Trip Advisor</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style type="text/css">
+            *{
+                margin:0;
+                padding:0;
+            }
+            body{
+                background-image: linear-gradient(to right, #004ddc, #0087ff, #00b2fd, #00d6d7, #03f4aa);
+                background-attachment: scroll;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                height:1600px;
+                align-items: center;
+            }
+            h1
+            {
+                text-align: center;
+                font-family:Verdana, Geneva, Tahoma, sans-serif;
+                font-size: 40pt;
+                font-weight:900;
+                letter-spacing: 2px;
+                text-shadow: 3px 4px 5px rgba(22, 216, 206, 0.432);
+                background-image: linear-gradient(to bottom, #0f3d13, #0f691a, #07981e, #00cb1c, #00ff0b);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+            .parentcontainer{
+                width: min(90vw);
+                height:90%;
+                box-shadow: 5px -5px 100px 20px #f0f0f3,
+                            -5px 5px 100px 20px #1f2424;
+                background:url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSQPIur_k93xb3PO4K9dbHtoqPb2XY2xM2RA&usqp=CAU") no-repeat fixed,white ;
+                background-size: cover;
+                background-position: center;
+            }
+            .container-nav{
+                margin-top:1.5%;
+                margin-left: 1%;
+                display: grid;
+                grid-template-columns: 14% auto 12% 13% 16% 12% 15.5% ;
+                grid-template-rows: 1fr ;
+                align-items: center;
+                justify-items: start;
+            }
+            .nav-button{
+                background:rgba(0, 0, 0, 0.034);
+                border:none;
+                font-size: 1.5rem;
+                color:#004ddc;
+                padding: 7px;
+                filter: brightness();
+                padding-left: 10px;
+                transform: scale3d(.8,.8,.8);
+                transition:  all 1.5s cubic-bezier(0, 1.01, 1, 2.53) ;
+                border-radius:10px;
+                box-shadow: 2px 2px 4px seagreen;
+                letter-spacing: 5px;
+                font-weight: bold;
+            }
+            ion-icon{
+                transform:scale3d(1.3,1.3,1.3);
+                margin-right: 1rem;
+                color:#35a382;
+                filter: brightness(100%) ;
+                mix-blend-mode:darken;
+            }
+            [name*="bicycle"],[name*="log"]{
+                transform:scale3d(1.5,1.5,1.5);
+            }
+            .nav-button:hover{
+                transform: scale3d(.9,.9,.9);
+                border-bottom: 2px solid #004ddc;
+                background: rgba(0, 0, 0, 0.1);
+                transition:all .5s 1 linear forwards;
+            }
+            .nav-button:active{
+                transform: scale3d(.85,.85,.85);
+                border-bottom: 2px solid #20ff03;
+                background: rgba(0, 0, 0, 0.3);
+            }
+            #logo{
+                filter: brightness(110%)  contrast(100%) opacity(100%);
+                mix-blend-mode:multiply;
+                transform: scale3d(1.5,1.5,1.5);
+                justify-self:stretch ;
+                padding-left: 10px;
+                padding-top: 10px;
+            }
+            lord-icon{
+                width: 20px;
+                height: 20px;
+                transform: scale3d(2,2,2);
+                padding: 1px 13px 3px 7px;
+            }
+            #trips{
+                width: 25px;
+                height: 25px;
+            }
+            .trips{
+                position: relative;
+            }
+            .drop-menu{
+                position:absolute;
+                left:-4px;
+                top:25px;
+                font-size:1.5rem;
+                letter-spacing: 2px;
+                line-height: 2.5rem;
+                font-weight:bold ;
+                font-family:cursive;
+                color:#004ddc;
+                background: white;
+                border-radius: 5px;
+                font-weight: inherit;
+                box-shadow:0px 0px 5px 1px #03f4aa;
+                z-index:1000;
+                filter: brightness();
+                transform: scale3d(.73,.73,.73);
+            }
+            .drop-menu ul li{
+                padding:0 10px;
+                list-style: none;
+            }
+            .drop-menu ul li:hover{
+                background: #03f4aa;
+                border-radius: 15px;
+                font-weight: 900;
+                opacity:1;
+            }
+            hr{
+                background:#03f4aa;
+                border:1px solid #03f4aa;
+            }
+            .trips .drop-menu{
+                display: none;
+            }
+            #trip:hover #drop-menu{
+                display: block;
+            }
+            .container-content{
+                display:grid;
+                grid-template-columns: repeat(3,380px);
+                justify-content: space-evenly   ;
+                grid-row-gap:50px;
+            }
+            .cards{
+                box-shadow: 0 0 10px 1px black;
+                margin:10px;
+                background:white;
+                transition:  all 2.5s cubic-bezier(0, 1.01, 1, 2.53) ;
+                border-radius: 10px;
+            }
+            .cards:hover{
+                box-shadow: 0 0 20px 2px #023b1f;
+                transform: scale3d(1.05,1.05,1.05);
+                transition:  all 2.7s cubic-bezier(0, 1.01, 1, 2.53) ;
+            }
+            .title{
+                width:100%;
+                background: #4c4e4e;
+                border-top-left-radius: 10px;
+                border-top-right-radius: 10px;
+            }
+            .title p{
+                font-size:2.2rem;
+                font-weight: 700;
+                color:#1ec291;
+                transform: scale3d(.6,.6,.6);
+                white-space: pre;
+            }
+            ._1 p{
+                transform: translateX(-18px) scale3d(.6,.6,.6);
+            }
+            .cards:hover .title p{
+                font-weight:900;
+                transform: scale3d(.7,.7,.7);
+                transition:  all 2.5s cubic-bezier(0, 1.01, 1, 2.53) ;
+            }
+            .cards:hover ._1 p{
+                font-weight:900;
+                transform: translateX(-18px) scale3d(.7,.7,.7);
+                transition:  all 2.5s cubic-bezier(0, 1.01, 1, 2.53) ;
+            }
+            .image{
+                width:100%;
+                height:200px;
+            }
+            .image2{
+                width:100%;
+                height:98px;
+            }
+            .content{
+                height:230px;
+                overflow-y:auto;
+                margin:10px 5px 10px 5px;
+                text-indent: 45px;
+            }
+            .content2{
+                height:125px;
+                overflow-y:auto;
+                margin:10px 5px 10px 5;
+                text-indent: 45px;
+            }
+            .content p{
+                font-size:1.25rem;
+                font-weight: 500;
+                text-align: justify;
+                font-style:italic;
+                padding:5px;
+            }
+            .content2 p{
+                font-size:1.2rem;
+                font-weight: 500;
+                text-align: justify;
+                font-style: italic;
+                padding:7px;
+            }
+            .extra{
+                width:100%;
+                background: #272b2a;
+                height:30px;
+                padding-bottom: 5px;
+                border-bottom-left-radius: 10px;
+                border-bottom-right-radius: 10px;
+            }
+            #like{
+                width:23px;
+                height:23px;
+                transform: translate3d(10px,5px,10px) ;
+                color:white;
+            }
+            #like:hover{
+                background: transparent;
+                transform:  translate3d(10px,6px,10px) scale3d(1.5,1.5,1.5);
+            }
+            #like:active{
+                color:#03f4aa;
+                transform: translate3d(10px,5px,10px) scale3d(1.2,1.2,1.2);
+            }
+            .extra:active .num{
+                color:white;
+            }
+            .num{
+                color:#03f4aa;    
+                background: #272b2a;
+                border:none;
+                width:60px;
+                pointer-events: none;
+                font-size: 1rem;
+            }
+            .link{
+                color:white;
+            }
+            .link:hover{
+                text-decoration-line: underline;
+            }
+            .link:active{
+                color:#03f4aa; 
+                font-weight: 700;
+            }
+            .link:visited{
+                color:#03f4aa; 
+            }
+        </style>    
+    </head>
+    <body>
+        <div class="parentcontainer">
+            <div class="container-nav">
+                <img src="https://icon2.cleanpng.com/20180601/af/kisspng-capri-palm-springs-convention-center-hotel-tripadv-review-5b11c1b59a01b2.4509683115278903576308.jpg" id="logo">
+                <div></div>
+                <button id="home" onclick="document.location.href='home.html'" class="nav-button">
+                    <ion-icon name="home"></ion-icon>Home
+                </button>
+                <button onclick="document.location.href='login.html'" class="nav-button">
+                    <lord-icon src="https://cdn.lordicon.com/gqzfzudq.json" trigger="loop" colors="primary:#121331,secondary:#08a88a" stroke="80 "></lord-icon>Login
+                </button >
+                <button class="register nav-button"   onclick="document.location.href='register.html'">
+                    <ion-icon name="person-add"></ion-icon>Register
+                </button>
+                <div class="trips" id="trip">
+                    <button class="nav-button"  id="trip">
+                        <lord-icon id="trips" src="https://cdn.lordicon.com/mqlsefjv.json" trigger="loop"  stroke="90"></lord-icon>Trips
+                    </button>
+                    <div class="drop-menu" id="drop-menu">
+                        <ul>
+                            <li onclick="document.location.href='adventure.html'">Adventure<hr></li>
+                            <li onclick="document.location.href='beach.html'">Beach<hr></li>
+                            <li onclick="document.location.href='cultural.html'">Cultural<hr></li>
+                            <li onclick="document.location.href='wild-tourism.html'">Wildlife<hr></li>
+                            <li onclick="document.location.href='sports.html'">Sports</li>      
+                        </ul>
+                    </div>   
+                </div>
+                <button class="chat nav-button" >
+                    <ion-icon name="chatbubbles"></ion-icon>Support
+                </button>  
+            </div>
+            <br><br>
+            <h1>
+                WildLife Tourism
+            </h1>
+            <br><br>
+            <div class="container-content">
+                <div class="cards">
+                    <div class="title _1">
+                        <p>Yellowstone National Park</p>
+                    </div>
+                    <div id="image">
+                        <img src="https://845637.smushcdn.com/1779376/wp-content/uploads/2020/04/Our-Kind-of-Crazy-Wyoming-Bison.jpg?lossy=1&strip=1&webp=1" class="image">
+                    </div>
+                    <div class="content">
+                        <p>
+                            This is the best spot to see roaming wildlife in the U.S.A. Here, you can find everything from large elk, herds of bison, brown bears and black bears with their cubs, mountain goats, fox, wolves, and so much more.<br>We recommend you to visit here the Spring, as that’s when the wildlife starts coming back out from the winter slumber. 
+                        </p>
+                    </div>
+                    <div class="extra">
+                        <svg xmlns="http://www.w3.org/2000/svg" onclick="myfunction('num1')" id="like" width="16" height="16" fill="currentColor" class="bi bi-hand-thumbs-up-fill" viewBox="0 0 16 16">
+                            <path d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a9.84 9.84 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733.058.119.103.242.138.363.077.27.113.567.113.856 0 .289-.036.586-.113.856-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.163 3.163 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.82 4.82 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z"/>
+                        </svg>
+                        &emsp;
+                        <input type="text" class="num" id="num1" value="2934">
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                        <a href="https://www.yellowstonenationalpark.com/">
+                            <span class="link">
+                                View Article
+                            </span>  
+                        </a>
+                    </div>
+                </div>
+                <div class="cards">
+                    <div class="title _1">
+                        <p>Rathambore National Park</p>
+                    </div>
+                    <div class="content">
+                        <p>
+                            Ranthambore National Park is located in Rajasthan, India. A visit to the park can be easily combined with a 2-week Rajasthan itinerary. The park can be visited year-round with the exception of the Monsoon season that lasts from July to September. Your experience in the park will be completely different depending on the season you’re coming.
+                        </p>
+                    </div>
+                    <div id="image">
+                        <img src="https://845637.smushcdn.com/1779376/wp-content/uploads/2020/04/Wapiti-Travel-Ranthambore_tiger_India_1000px-800x600.jpg?lossy=1&strip=1&webp=1" class="image">
+                    </div>
+                    <div class="extra">
+                        <svg xmlns="http://www.w3.org/2000/svg" onclick="myfunction('num3')" id="like" width="16" height="16" fill="currentColor" class="bi bi-hand-thumbs-up-fill" viewBox="0 0 16 16">
+                            <path d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a9.84 9.84 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733.058.119.103.242.138.363.077.27.113.567.113.856 0 .289-.036.586-.113.856-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.163 3.163 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.82 4.82 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z"/>
+                        </svg>
+                        &emsp;
+                        <input type="text" class="num" id="num3" value="223934">
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                        <a href="https://www.ranthamborenationalpark.com/">
+                            <span class="link">
+                                View Article
+                            </span>
+                        </a>
+                    </div>
+                </div>
+                <div class="cards">
+                    <div class="title _1">
+                        <p>Half Moon Island, Antartica</p>
+                    </div>
+                    <div class="content2">
+                        <p>
+                            During your trip to “The Last Continent,” you will find several species of seals, whales, penguins, and other birds. My favorite excursion was a visit to Half Moon Island, located next to Livingston Island.
+                        </p>
+                    </div>
+                    <div id="image">
+                        <img src="https://845637.smushcdn.com/1779376/wp-content/uploads/2020/04/thertwguys-1000px-gentoo-penguins-800x533.jpg?lossy=1&strip=1&webp=1" class="image">
+                    </div>
+                    <div class="content2">
+                        <p>
+                            Antarctic Peninsula and its surrounding islands are located just two days by ship from Ushuaia, the southernmost city in South America..
+                        </p>
+                    </div>
+                    <div class="extra">
+                        <svg xmlns="http://www.w3.org/2000/svg" onclick="myfunction('num4')" id="like" width="16" height="16" fill="currentColor" class="bi bi-hand-thumbs-up-fill" viewBox="0 0 16 16">
+                            <path d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a9.84 9.84 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733.058.119.103.242.138.363.077.27.113.567.113.856 0 .289-.036.586-.113.856-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.163 3.163 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.82 4.82 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z"/>
+                        </svg>
+                        &emsp;
+                        <input type="text" class="num" id="num4" value="453445">
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                        <a href="https://www.ats.aq/devAS/Ats/Guideline/d31a8aaf-cc8b-4d3b-9215-9b0e661bf70c">
+                            <span class="link">
+                                View Article
+                            </span>
+                        </a>
+                    </div>
+                </div>
+                <div class="cards">
+                    <div class="title">
+                        <p>Wilpattu National Park</p>
+                    </div>
+                    <div class="content">
+                        <p>
+                            There are around 500-650 leopards in the wild in Sri Lanka. The majority of these reside in Sri Lanka’s largest national park, which is the Wilpattu National Park. It’s a beautiful place to camp close by for a night after heading out on safari to spot leopards. May to September is the dry season thus has a better chance of seeing leopards.
+                        </p>
+                    </div>
+                    <div id="image">
+                        <img src="https://845637.smushcdn.com/1779376/wp-content/uploads/2020/04/Dream-big-Travel-Far-wilpattu-national-park-safari-800px.jpg?lossy=1&strip=1&webp=1" class="image">
+                    </div>
+                    <div class="extra">
+                        <svg xmlns="http://www.w3.org/2000/svg" onclick="myfunction('num5')" id="like" width="16" height="16" fill="currentColor" class="bi bi-hand-thumbs-up-fill" viewBox="0 0 16 16">
+                            <path d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a9.84 9.84 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733.058.119.103.242.138.363.077.27.113.567.113.856 0 .289-.036.586-.113.856-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.163 3.163 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.82 4.82 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z"/>
+                        </svg>
+                        &emsp;
+                        <input type="text" class="num" id="num5" value="223934">
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                        <a href="https://www.tripadvisor.in/Attraction_Review-g13362153-d1720876-Reviews-Wilpattu_National_Park-Saliyapura_Anuradhapura_North_Central_Province.html">
+                            <span class="link">
+                                View Article
+                            </span>
+                        </a>
+                    </div>
+                </div>
+                <div class="cards">
+                    <div class="title">
+                        <p>Anse Noire, Martinique</p>
+                    </div>
+                    <div id="image">
+                        <img src="https://845637.smushcdn.com/1779376/wp-content/uploads/2020/04/Marcello-Rabozzi-Pixabay-Sea-Turtle-800x451.jpg?lossy=1&strip=1&webp=1" class="image">
+                    </div>
+                    <div class="content">
+                        <p>
+                            Martinique, a French island in the Lesser Antilles, is a prime destination for spotting sea turtles. The warm Caribbean sea is a snorkeler’s paradise because the water is warm and crystal clear. That means you can spot all kinds of native wildlife from abundant coral reef, to black and white sea urchins, to tropical fish and sea turtles.
+                        </p>
+                    </div>
+                    <div class="extra">
+                        <svg xmlns="http://www.w3.org/2000/svg" onclick="myfunction('num6')" id="like" width="16" height="16" fill="currentColor" class="bi bi-hand-thumbs-up-fill" viewBox="0 0 16 16">
+                            <path d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a9.84 9.84 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733.058.119.103.242.138.363.077.27.113.567.113.856 0 .289-.036.586-.113.856-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.163 3.163 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.82 4.82 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z"/>
+                        </svg>
+                        &emsp;
+                        <input type="text" class="num" id="num6" value="291234">
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                        <a href="https://www.lonelyplanet.com/martinique/les-anses-d-arlet/attractions/anse-noire/a/poi-sig/1559080/1317144">
+                            <span class="link">
+                                View Article
+                            </span>
+                        </a>
+                    </div>
+                </div>
+                <div class="cards">
+                    <div class="title _1">
+                        <p>Peninsula Valdes, Argentina</p>
+                    </div>
+                    <div id="image">
+                        <img src="https://hdwallsource.com/img/2016/11/sea-lion-family-wide-wallpaper-52662-54379-hd-wallpapers.jpg" class="image2">
+                    </div>
+                    <div class="content">
+                        <p>The Peninsula Valdes in Argentina should be on every wildlife lover’s South American itinerary. This corner of northern Patagonia is famous for its whale watching. However, there is so much more to see here. Southern right whales, sea lions, elephant seals and Magellanic penguins all come here to have their young, making the Peninsula Valdes the prime wildlife destination in Argentina.<br><br> You’ll also see orcas, dolphins, guanacos (cousin to the llama), and much more.
+                            <br><br>It’s best to visit when the whales are there from April to December. The absolute best months are September through November. 
+                            <br><br>Try to spend at least two days at Peninsula Valdes, as the peninsula is much larger than you would expect and you’ll be grateful for the time. If you only have one day, there are day trips departing from nearby Puerto Madryn that take guests to all of the wildlife viewpoints. All of the animals can be seen at a safe distance from well-constructed viewpoints and decks. The one paid tour that is worth every penny is a whale-watching boat excursion. These tours depart throughout the day from the small town of Puerto Piramides.
+                        </p>
+                    </div>
+                    <div id="image">
+                        <img src="https://845637.smushcdn.com/1779376/wp-content/uploads/2020/04/Winging-The-World-Galapagos-Marine-Iguana-1000px-800x449.jpg?lossy=1&strip=1&webp=1" class="image2">
+                    </div>
+                    <div class="extra">
+                        <svg xmlns="http://www.w3.org/2000/svg" onclick="myfunction('num2')" id="like" width="16" height="16" fill="currentColor" class="bi bi-hand-thumbs-up-fill" viewBox="0 0 16 16">
+                            <path d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a9.84 9.84 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733.058.119.103.242.138.363.077.27.113.567.113.856 0 .289-.036.586-.113.856-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.163 3.163 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.82 4.82 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z"/>
+                        </svg>
+                        &emsp;
+                        <input type="text" class="num" id="num2" value="78934">
+                        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                        <a href="https://whc.unesco.org/en/list/937/">
+                            <span class="link">
+                                View Article
+                            </span>
+                        </a>
+                    </div>
+                </div> 
+            </div>
+        </div>
+        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+        <script src="https://cdn.lordicon.com/libs/mssddfmo/lord-icon-2.1.0.js"></script>
+        <script>
+            let dict = {num1:1,num2:1,num3:1,num4:1,num5:1,num6:1};
+            function myfunction(x){
+                let Num = parseInt(document.getElementById(x).value);
+                if (dict[x] == 1){
+                document.getElementById(x).value = Num+1;
+                dict[x] = 0;
+                }
+                else if (dict[x] == 0){
+                document.getElementById(x).value = Num-1;
+                dict[x] = 1;
+                }
+            }
+        </script>
+    </body>
+</html>
